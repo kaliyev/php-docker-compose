@@ -3,4 +3,5 @@
 .idea/
 .vscode/
 client/
+*.yml
 server/nginx/conf.d/*.conf
