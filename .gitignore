@@ -5,3 +5,4 @@
 client/
 *.yml
 server/nginx/conf.d/*.conf
+server/php/*.ini
