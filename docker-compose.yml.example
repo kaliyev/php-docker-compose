@@ -68,13 +68,13 @@ services:
   #       INSTALL_IMAGEMAGICK: ${INSTALL_IMAGEMAGICK}
   #       FROM_PHP_INI_DIR: ${FROM_PHP_INI_DIR}
   #       TO_PHP_INI_DIR: ${TO_PHP_INI_DIR}
-  #   container_name: ${COMPOSE_PROJECT_NAME}_app
+  #   container_name: ${COMPOSE_PROJECT_NAME}_cli
   #   restart: unless-stopped
   #   tty: true
   #   working_dir: /var/www
   #   volumes:
   #     - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
-  #     - ${FROM_PHP_INI_DIR}/php-${PHP_VERSION}-${APP_ENV}.ini:${TO_PHP_INI_DIR}/php.ini
+  #     - ${FROM_PHP_INI_DIR}/php-${PHP_VERSION}-${APP_ENV}-cli.ini:${TO_PHP_INI_DIR}/php.ini
   #   networks:
   #     - default
 
@@ -94,12 +94,12 @@ services:
       - services
 
   db:
-    image: mysql:8.0.35
+    image: mysql:${MYSQL_VERSION}
     container_name: ${COMPOSE_PROJECT_NAME}_mysql
     restart: unless-stopped
     tty: true
     ports:
-      - "3306:3306"
+      - "${MYSQL_PORT}:${MYSQL_PORT}"
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -114,7 +114,7 @@ services:
     volumes:
       - redisdata:/data
     ports:
-      - "6379:6379"
+      - "${REDIS_PORT}:${REDIS_PORT}"
     networks:
       - default
 
