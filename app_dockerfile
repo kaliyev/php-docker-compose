@@ -16,9 +16,12 @@ RUN curl -sSLf \
         https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions && \
     chmod +x /usr/local/bin/install-php-extensions
 
+ARG INSTALL_XDEBUG=false
+ARG INSTALL_PHPREDIS=false
+
 RUN set -eux; \
     extensions="gd zip exif pcntl opcache pdo_mysql"; \
-    if [ "$INSTALL_INSTALL_XDEBUG" = "true" ]; then \
+    if [ "$INSTALL_XDEBUG" = "true" ]; then \
         extensions="$extensions xdebug"; \
     fi; \
     if [ "$INSTALL_PHPREDIS" = "true" ]; then \
@@ -29,7 +32,7 @@ RUN set -eux; \
 # Install composer
 ARG INSTALL_COMPOSER=false
 RUN if [ ${INSTALL_COMPOSER} = true ]; then \
-    COPY --from=composer /usr/bin/composer /usr/bin/composer
+    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
 ;fi
 
 ARG PUID=1000
