@@ -7,7 +7,6 @@ WORKDIR /var/www
 
 # Install dependencies
 RUN apk update && apk add \
-  git \
   curl
 
 # Install extensions
