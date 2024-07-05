@@ -1,0 +1,14 @@
+upload_max_filesize=40M
+post_max_size=40M
+memory_limit=1500M
+
+zend_extension=opcache.so
+
+[xdebug]
+zend_extension=xdebug.so
+xdebug.mode=debug
+xdebug.client_host=172.17.0.1
+#xdebug.client_host=host.docker.internal
+xdebug.client_port=9003
+xdebug.idekey=PHPSTORM
+xdebug.start_with_request=yes
