@@ -12,8 +12,9 @@ services:
         INSTALL_XDEBUG: ${INSTALL_XDEBUG}
         INSTALL_PHPREDIS: ${INSTALL_PHPREDIS}
         INSTALL_COMPOSER: ${INSTALL_COMPOSER}
+        INSTALL_MYSQL: ${INSTALL_MYSQL}
+        INSTALL_ZIP: ${INSTALL_ZIP}
         NGINX_PHP_UPSTREAM_PORT: ${NGINX_PHP_UPSTREAM_PORT}
-        INSTALL_IMAGEMAGICK: ${INSTALL_IMAGEMAGICK}
         FROM_PHP_INI_DIR: ${FROM_PHP_INI_DIR}
         TO_PHP_INI_DIR: ${TO_PHP_INI_DIR}
     container_name: ${COMPOSE_PROJECT_NAME}_app
@@ -65,7 +66,8 @@ services:
   #       INSTALL_XDEBUG: ${INSTALL_XDEBUG}
   #       INSTALL_PHPREDIS: ${INSTALL_PHPREDIS}
   #       INSTALL_COMPOSER: ${INSTALL_COMPOSER}
-  #       INSTALL_IMAGEMAGICK: ${INSTALL_IMAGEMAGICK}
+  #       INSTALL_MYSQL: ${INSTALL_MYSQL}
+  #       INSTALL_ZIP: ${INSTALL_ZIP}
   #       FROM_PHP_INI_DIR: ${FROM_PHP_INI_DIR}
   #       TO_PHP_INI_DIR: ${TO_PHP_INI_DIR}
   #   container_name: ${COMPOSE_PROJECT_NAME}_cli
@@ -93,20 +95,20 @@ services:
       - default
       - services
 
-  db:
-    image: mysql:${MYSQL_VERSION}
-    container_name: ${COMPOSE_PROJECT_NAME}_mysql
-    restart: unless-stopped
-    tty: true
-    ports:
-      - "${MYSQL_PORT}:${MYSQL_PORT}"
-    environment:
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    volumes:
-      - dbdata:/var/lib/mysql/
+#  db:
+#    image: mysql:${MYSQL_VERSION}
+#    container_name: ${COMPOSE_PROJECT_NAME}_mysql
+#    restart: unless-stopped
+#    tty: true
+#    ports:
+#      - "${MYSQL_PORT}:${MYSQL_PORT}"
+#    environment:
+#      MYSQL_DATABASE: ${MYSQL_DATABASE}
+#      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+#      MYSQL_USER: ${MYSQL_USER}
+#      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+#    volumes:
+#      - dbdata:/var/lib/mysql/
 
 #   redis:
 #     image: redis:latest
