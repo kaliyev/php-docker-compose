@@ -17,9 +17,17 @@ RUN curl -sSLf \
 
 ARG INSTALL_XDEBUG=false
 ARG INSTALL_PHPREDIS=false
+ARG INSTALL_MYSQL=false
+ARG INSTALL_ZIP=false
 
 RUN set -eux; \
-    extensions="gd zip exif pcntl opcache pdo_mysql"; \
+    extensions="gd zip exif pcntl opcache"; \
+    if [ "$INSTALL_ZIP" = "true" ]; then \
+        extensions="$extensions zip"; \
+    fi; \
+    if [ "$INSTALL_MYSQL" = "true" ]; then \
+        extensions="$extensions pdo_mysql"; \
+    fi; \
     if [ "$INSTALL_XDEBUG" = "true" ]; then \
         extensions="$extensions xdebug"; \
     fi; \
