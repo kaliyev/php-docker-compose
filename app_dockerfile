@@ -19,11 +19,15 @@ ARG INSTALL_XDEBUG=false
 ARG INSTALL_PHPREDIS=false
 ARG INSTALL_MYSQL=false
 ARG INSTALL_ZIP=false
+ARG INSTALL_GD=false
 
 RUN set -eux; \
-    extensions="gd zip exif pcntl opcache"; \
+    extensions="pcntl opcache"; \
     if [ "$INSTALL_ZIP" = "true" ]; then \
         extensions="$extensions zip"; \
+    fi; \
+    if [ "$INSTALL_GD" = "true" ]; then \
+        extensions="$extensions gd exif"; \
     fi; \
     if [ "$INSTALL_MYSQL" = "true" ]; then \
         extensions="$extensions pdo_mysql"; \
