@@ -33,7 +33,7 @@ services:
       - ${FROM_PHP_INI_DIR}/php-${PHP_VERSION}-${APP_ENV}.ini:${TO_PHP_INI_DIR}/php.ini
     networks:
       - default
-      - services
+#      - services
 
   # app with builded image
   # app:
@@ -95,7 +95,7 @@ services:
       - app
     networks:
       - default
-      - services
+#      - services
 
 #  db:
 #    image: mysql:${MYSQL_VERSION}
@@ -126,12 +126,12 @@ services:
 networks:
   default:
     driver: bridge
-  services:
-    external: true
+#  services:
+#    external: true
 
 #Volumes
-volumes:
-  dbdata:
-    driver: local
-  #redisdata:
-  #  driver: local
+#volumes:
+#  dbdata:
+#    driver: local
+#  redisdata:
+#    driver: local
