@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.9'
 
 services:
   #default app with php-fpm
@@ -33,7 +33,6 @@ services:
       - ${FROM_PHP_INI_DIR}/php-${PHP_VERSION}-${APP_ENV}.ini:${TO_PHP_INI_DIR}/php.ini
     networks:
       - default
-#      - services
 
   # app with builded image
   # app:
@@ -53,8 +52,6 @@ services:
   #     - ${FROM_PHP_INI_DIR}/php-${PHP_VERSION}-${APP_ENV}.ini:${TO_PHP_INI_DIR}/php.ini
   #   networks:
   #     - default
-  #     - services
-
 
   # Console app example
   # app:
@@ -95,7 +92,6 @@ services:
       - app
     networks:
       - default
-#      - services
 
 #  db:
 #    image: mysql:${MYSQL_VERSION}
@@ -126,8 +122,6 @@ services:
 networks:
   default:
     driver: bridge
-#  services:
-#    external: true
 
 #Volumes
 #volumes:
