@@ -18,6 +18,7 @@ RUN curl -sSLf \
 ARG INSTALL_XDEBUG=false
 ARG INSTALL_PHPREDIS=false
 ARG INSTALL_MYSQL=false
+ARG INSTALL_PGSQL=false
 ARG INSTALL_ZIP=false
 ARG INSTALL_GD=false
 
@@ -31,6 +32,9 @@ RUN set -eux; \
     fi; \
     if [ "$INSTALL_MYSQL" = "true" ]; then \
         extensions="$extensions pdo_mysql"; \
+    fi; \
+    if [ "INSTALL_PGSQL" = "true" ]; then \
+        extensions="$extensions pdo_pgsql"; \
     fi; \
     if [ "$INSTALL_XDEBUG" = "true" ]; then \
         extensions="$extensions xdebug"; \
@@ -46,17 +50,8 @@ RUN if [ ${INSTALL_COMPOSER} = true ]; then \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
 ;fi
 
-ARG PUID=1000
-ENV PUID ${PUID}
-ARG PGID=1000
-ENV PGID ${PGID}
-
-# Add user for laravel application
-RUN addgroup -g ${PGID} www
-RUN adduser --disabled-password -H -u ${PUID} -s /bin/bash -G www www
-
 # Change current user to www
-USER www
+USER www-data
 
 # Expose port 9000 and start php-fpm server
 ARG NGINX_PHP_UPSTREAM_PORT=9000

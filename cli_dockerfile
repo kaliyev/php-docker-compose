@@ -18,6 +18,7 @@ RUN curl -sSLf \
 ARG INSTALL_XDEBUG=false
 ARG INSTALL_PHPREDIS=false
 ARG INSTALL_MYSQL=false
+ARG INSTALL_PGSQL=false
 ARG INSTALL_ZIP=false
 ARG INSTALL_GD=false
 
@@ -31,6 +32,9 @@ RUN set -eux; \
     fi; \
     if [ "$INSTALL_MYSQL" = "true" ]; then \
         extensions="$extensions pdo_mysql"; \
+    fi; \
+    if [ "INSTALL_PGSQL" = "true" ]; then \
+        extensions="$extensions pdo_pgsql"; \
     fi; \
     if [ "$INSTALL_XDEBUG" = "true" ]; then \
         extensions="$extensions xdebug"; \

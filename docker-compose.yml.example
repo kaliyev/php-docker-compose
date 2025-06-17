@@ -13,6 +13,7 @@ services:
         INSTALL_PHPREDIS: ${INSTALL_PHPREDIS}
         INSTALL_COMPOSER: ${INSTALL_COMPOSER}
         INSTALL_MYSQL: ${INSTALL_MYSQL}
+        INSTALL_PGSQL: ${INSTALL_PGSQL}
         INSTALL_ZIP: ${INSTALL_ZIP}
         INSTALL_GD: ${INSTALL_GD}
         NGINX_PHP_UPSTREAM_PORT: ${NGINX_PHP_UPSTREAM_PORT}
@@ -26,8 +27,6 @@ services:
       DB_USERNAME: ${MYSQL_USER}
       DB_PASSWORD: ${MYSQL_PASSWORD}
       REDIS_HOST: ${COMPOSE_PROJECT_NAME}_redis
-    tty: true
-    working_dir: /var/www
     volumes:
       - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
       - ${FROM_PHP_INI_DIR}/php-${PHP_VERSION}-${APP_ENV}.ini:${TO_PHP_INI_DIR}/php.ini
@@ -45,8 +44,6 @@ services:
   #     DB_USERNAME: ${MYSQL_USER}
   #     DB_PASSWORD: ${MYSQL_PASSWORD}
   #     REDIS_HOST: ${COMPOSE_PROJECT_NAME}_redis
-  #   tty: true
-  #   working_dir: /var/www
   #   volumes:
   #     - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
   #     - ${FROM_PHP_INI_DIR}/php-${PHP_VERSION}-${APP_ENV}.ini:${TO_PHP_INI_DIR}/php.ini
@@ -65,14 +62,13 @@ services:
   #       INSTALL_PHPREDIS: ${INSTALL_PHPREDIS}
   #       INSTALL_COMPOSER: ${INSTALL_COMPOSER}
   #       INSTALL_MYSQL: ${INSTALL_MYSQL}
+  #       INSTALL_PGSQL: ${INSTALL_PGSQL}
   #       INSTALL_ZIP: ${INSTALL_ZIP}
   #       INSTALL_GD: ${INSTALL_GD}
   #       FROM_PHP_INI_DIR: ${FROM_PHP_INI_DIR}
   #       TO_PHP_INI_DIR: ${TO_PHP_INI_DIR}
   #   container_name: ${COMPOSE_PROJECT_NAME}_cli
   #   restart: unless-stopped
-  #   tty: true
-  #   working_dir: /var/www
   #   volumes:
   #     - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
   #     - ${FROM_PHP_INI_DIR}/php-${PHP_VERSION}-${APP_ENV}-cli.ini:${TO_PHP_INI_DIR}/php.ini
@@ -84,7 +80,6 @@ services:
     image: nginx:alpine
     container_name: ${COMPOSE_PROJECT_NAME}-webserver
     restart: unless-stopped
-    tty: true
     volumes:
       - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
       - ./server/nginx/conf.d/:/etc/nginx/conf.d/
@@ -93,6 +88,7 @@ services:
     networks:
       - default
 
+# MySQL
 #  db:
 #    image: mysql:${MYSQL_VERSION}
 #    container_name: ${COMPOSE_PROJECT_NAME}_mysql
@@ -105,6 +101,20 @@ services:
 #      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
 #      MYSQL_USER: ${MYSQL_USER}
 #      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+#    volumes:
+#      - dbdata:/var/lib/mysql/
+
+# PostgreSQL
+#  db:
+#    image: pgsql:${PGSQL_VERSION}
+#    container_name: ${COMPOSE_PROJECT_NAME}_mysql
+#    restart: unless-stopped
+#    ports:
+#      - "${PGSQL_PORT}:${PGSQL_PORT}"
+#    environment:
+#      POSTGRES_DB: ${PGSQL_DATABASE}
+#      POSTGRES_USER: ${PGSQL_USER}
+#      POSTGRES_PASSWORD: ${PGSQL_PASSWORD}
 #    volumes:
 #      - dbdata:/var/lib/mysql/
 
