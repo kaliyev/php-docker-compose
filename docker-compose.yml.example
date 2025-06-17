@@ -107,7 +107,7 @@ services:
 # PostgreSQL
 #  db:
 #    image: pgsql:${PGSQL_VERSION}
-#    container_name: ${COMPOSE_PROJECT_NAME}_mysql
+#    container_name: ${COMPOSE_PROJECT_NAME}_pgsql
 #    restart: unless-stopped
 #    ports:
 #      - "${PGSQL_PORT}:${PGSQL_PORT}"
