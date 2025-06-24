@@ -106,7 +106,7 @@ services:
 
 # PostgreSQL
 #  db:
-#    image: pgsql:${PGSQL_VERSION}
+#    image: postgres:${PGSQL_VERSION}
 #    container_name: ${COMPOSE_PROJECT_NAME}_pgsql
 #    restart: unless-stopped
 #    ports:
@@ -116,7 +116,7 @@ services:
 #      POSTGRES_USER: ${PGSQL_USER}
 #      POSTGRES_PASSWORD: ${PGSQL_PASSWORD}
 #    volumes:
-#      - dbdata:/var/lib/mysql/
+#      - dbdata:/var/lib/postgresql/
 
 #   redis:
 #     image: redis:latest

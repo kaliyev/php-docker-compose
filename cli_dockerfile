@@ -1,5 +1,5 @@
 # Download official image of php with extansions
-ARG PHP_VERSION
+ARG PHP_VERSION=8.4
 FROM php:${PHP_VERSION}-alpine
 
 # Set working directory
@@ -33,7 +33,7 @@ RUN set -eux; \
     if [ "$INSTALL_MYSQL" = "true" ]; then \
         extensions="$extensions pdo_mysql"; \
     fi; \
-    if [ "INSTALL_PGSQL" = "true" ]; then \
+    if [ "$INSTALL_PGSQL" = "true" ]; then \
         extensions="$extensions pdo_pgsql"; \
     fi; \
     if [ "$INSTALL_XDEBUG" = "true" ]; then \
