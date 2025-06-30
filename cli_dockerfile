@@ -21,6 +21,7 @@ ARG INSTALL_MYSQL=false
 ARG INSTALL_PGSQL=false
 ARG INSTALL_ZIP=false
 ARG INSTALL_GD=false
+ARG INSTALL_INTL=false
 
 RUN set -eux; \
     extensions="pcntl opcache"; \
@@ -41,6 +42,9 @@ RUN set -eux; \
     fi; \
     if [ "$INSTALL_PHPREDIS" = "true" ]; then \
         extensions="$extensions redis"; \
+    fi; \
+    if [ "$INSTALL_INTL" = "true" ]; then \
+        extensions="$extensions intl"; \
     fi; \
     install-php-extensions $extensions
 
